@@ -31,6 +31,7 @@ while True:
     img = frame_read.frame
     cv2.imshow("drone", img)
 
+
     key = cv2.waitKey(1) & 0xff
 
 tello.
