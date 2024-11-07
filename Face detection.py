@@ -1,27 +1,43 @@
 import cv2
 
-# Load the Haar Cascade Classifier
+# Load the pre-trained Haar Cascade for face detection
 faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
-# Attempt to read the image
-img = cv2.imread('1920_stock-photo-mosaic-of-satisfied-people-157248584.jpg')  # Update this path as necessary
+# Start capturing video from the webcam (0 is usually the default camera)
+cap = cv2.VideoCapture(0)
 
-# Check if the image loaded successfully
-if img is None:
-    print("Error: Could not load image. Please check the file path.")
-    exit()  # Exit the script if the image is not loaded
+# Check if the webcam is opened correctly
+if not cap.isOpened():
+    print("Error: Could not open webcam.")
+    exit()
 
-# Convert the image to grayscale
-imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+# Loop to continuously get frames from the webcam
+while True:
+    # Read a frame from the camera
+    ret, frame = cap.read()
 
-# Detect faces in the image
-faces = faceCascade.detectMultiScale(imgGray, 1.1, 4)
+    # Check if the frame was successfully captured
+    if not ret:
+        print("Error: Failed to capture image.")
+        break
 
-# Draw rectangles around detected faces
-for (x, y, w, h) in faces:
-    cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    # Convert the frame to grayscale (improves performance and accuracy of detection)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-# Display the resulting image
-cv2.imshow("Result", img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()  # Close all OpenCV windows after a key press
+    # Detect faces in the grayscale frame
+    faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+    # Draw rectangles around detected faces
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+    # Display the frame with rectangles drawn around faces
+    cv2.imshow("Face Detection", frame)
+
+    # Press 'q' to exit the loop and close the webcam
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# Release the webcam and close any OpenCV windows
+cap.release()
+cv2.destroyAllWindows()
