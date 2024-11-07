@@ -20,6 +20,10 @@ faces = faceCascade.detectMultiScale(imgGray, 1.1, 4)
 # Draw rectangles around detected faces
 for (x, y, w, h) in faces:
     cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    area = w * h
+    print(area)
+
+
 
 # Display the resulting image
 cv2.imshow("Result", img)
