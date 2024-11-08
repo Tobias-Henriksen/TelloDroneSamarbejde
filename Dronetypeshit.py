@@ -9,7 +9,7 @@
 #
 # W, A, S, D 移动， E, Q 转向，R、F上升与下降.
 # 开始运行程序时Tello会自动起飞，按ESC键降落
-# 并且程序会退出ssssssssssssssssssssssssssssss
+# 并且程序会退出
 
 from djitellopy import Tello
 import cv2, math, time
