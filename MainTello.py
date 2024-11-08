@@ -62,3 +62,7 @@ while True:
 #Show The Frame
     cv2.imshow("DroneCapture", img)
     cv2.waitKey(1)
+
+cam_midX = list(range(530, 550)
+cam_midY = list(range(350, 370)
+

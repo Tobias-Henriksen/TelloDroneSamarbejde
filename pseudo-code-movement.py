@@ -1,5 +1,6 @@
 from djitellopy import Tello
 import cv2, math, time
+import numpy as np
 
 tello = Tello()
 tello.connect()
@@ -24,21 +25,21 @@ def is_point_in_area(x, y, area):
     return x_in_range and y_in_range
 
 
-def function followSubject:
+def followSubject(self):
     tello.takeoff() with speed x to height 170cm
 
     if not in frame:
-        rotate horizontaly
+        self.yaw_velocity = -S  #rotate horizontaly
 
     if in frame:
 
         if is_point_in_area == True:
 
             if pixels from cam-edge to subject < num:
-                backwards
+                self.for_back_velocity = -S #backwards
 
             else if pixels from cam-edge to subject > num:
-                forward
+                self.for_back_velocity = S  #forward
             else:
                 wait
         else
