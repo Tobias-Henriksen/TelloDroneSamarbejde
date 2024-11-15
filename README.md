@@ -1,4 +1,4 @@
-Drone follows person in either front face detection mode or upper body from/behind mode
+Drone follows person in either front face detection mode or upper body front/behind mode
 
 Trello board: https://trello.com/b/m4kimv4Z/drone
 
