@@ -10,6 +10,8 @@ tello.streamon()
 
 # Load the Haar Cascade for pedestrian detection
 person_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fullbody.xml')
+person_cascade = cv2.CascadeClassifier('path_to_downloaded_haarcascade/haarcascade_fullbody.xml')
+
 
 # Parameters
 FRAME_WIDTH, FRAME_HEIGHT = 640, 480  # Resolution of the drone's video feed
