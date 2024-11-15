@@ -8,7 +8,7 @@ tello = Tello()
 tello.connect()
 tello.streamon()
 
-# Load the Haar Cascade for upper body detection
+# Load the Haar Cascade for upper body detection from file
 person_cascade = cv2.CascadeClassifier('cascades\haarcascade_upperbody.xml')
 
 # Parameters
