@@ -8,14 +8,14 @@ tello = Tello()
 tello.connect()
 tello.streamon()
 
-# Load the Haar Cascade for pedestrian detection
-person_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fullbody.xml')
+# Load the Haar Cascade for upper body detection from file
+person_cascade = cv2.CascadeClassifier('cascades\haarcascade_upperbody.xml')
 
 # Parameters
 FRAME_WIDTH, FRAME_HEIGHT = 640, 480  # Resolution of the drone's video feed
-desired_distance_pixels = 200         # Calibrate to match 1.5 meters
+desired_distance_pixels = 160         # Calibrate to match 1.5 meters
 center_x_threshold = 40               # Tolerance for center alignment
-max_speed = 50                        # Max drone speed (0-100)
+max_speed = 50     ''                   # Max drone speed (0-100)
 
 # Variables to track previous position and time
 prev_position = None
@@ -23,7 +23,7 @@ prev_time = None
 movement_detected = False
 
 # Create a map for displaying the walking route
-map_size = 500  # Size of the map window
+map_size = 800  # Size of the map window
 map_image = np.ones((map_size, map_size, 3), dtype=np.uint8) * 255  # White background
 map_scale = 0.2  # Scaling factor to fit the movement into the map view
 
@@ -31,10 +31,18 @@ map_scale = 0.2  # Scaling factor to fit the movement into the map view
 drone_position = np.array([map_size // 2, map_size // 2])
 person_position = np.array([map_size // 2, map_size // 2])
 
+tello.takeoff()
+initial_vertical_speed = 30  # Adjust as needed to reach double height
+tello.send_rc_control(0, 0, initial_vertical_speed, 0)  # Initial lift-off to desired height
+
+time.sleep(2)
+
 try:
     # Takeoff and hover
-    tello.takeoff()
-    tello.send_rc_control(0, 0, 0, 0)  # Hover in place
+    #tello.takeoff()
+    #initial_vertical_speed = 20
+    #tello.send_rc_control(0, 0, initial_vertical_speed, 0)  # Hover in place
+    #time.sleep(2)
 
     while True:
         # Get the current frame from the Tello camera
@@ -83,7 +91,7 @@ try:
             # Control the drone
             if abs(distance_error) > 10 or abs(center_offset) > center_x_threshold:
                 # Move to keep the distance and center alignment
-                tello.send_rc_control(lateral_speed, -forward_speed, 0, 0)
+                tello.send_rc_control(lateral_speed, +forward_speed, 0, 0)
             elif not movement_detected:
                 # If no significant movement, hover
                 tello.send_rc_control(0, 0, 0, 0)
