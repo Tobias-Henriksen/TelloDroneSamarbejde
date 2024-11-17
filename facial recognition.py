@@ -11,7 +11,7 @@ counter = 0
 
 face_match = False
 
-reference_img = cv2.imread("faces\\1731663638001.jpg")
+reference_img = cv2.imread("faces\\insert_file_name.jpg")
 
 
 def check_face(frame):
